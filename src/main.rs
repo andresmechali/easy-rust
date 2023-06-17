@@ -1,5 +1,8 @@
+#![allow(dead_code)]
+
+mod custom_trait;
 mod display;
 
 fn main() {
-    display::run();
+    custom_trait::run();
 }
