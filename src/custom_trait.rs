@@ -1,25 +1,31 @@
 use std::fmt::Debug;
 
 pub fn run() {
-    let wizard = Wizard {};
-    let ranger = Ranger {};
+    let wizard = Wizard { health: 35 };
+    let ranger = Ranger { health: 50 };
 
     let mut monster1 = Monster { health: 40 };
 
     wizard.attack_with_sword(&mut monster1);
     ranger.attack_with_sword(&mut monster1);
     ranger.attack_with_bow(&mut monster1, 8);
+
+    attack_with_hand(&wizard, &mut monster1);
 }
 
 struct Monster {
     health: i32,
 }
-#[derive(Debug)]
-struct Wizard {}
-#[derive(Debug)]
-struct Ranger {}
+#[derive(Debug, Clone)]
+struct Wizard {
+    health: i32,
+}
+#[derive(Debug, Clone)]
+struct Ranger {
+    health: i32,
+}
 
-trait FightClose {
+trait FightClose: Clone {
     fn attack_with_sword(&self, opponent: &mut Monster)
     where
         Self: Debug,
@@ -30,14 +36,6 @@ trait FightClose {
             opponent.health
         );
         println!("Current status: {:?}", self);
-    }
-
-    fn attack_with_hand(&self, opponent: &mut Monster) {
-        opponent.health -= 2;
-        println!(
-            "You attack with sword. Your opponent has {} life left.",
-            opponent.health
-        );
     }
 }
 
@@ -68,3 +66,11 @@ trait FightFromDistance {
 }
 
 impl FightFromDistance for Ranger {}
+
+fn attack_with_hand<T: FightClose + Debug>(character: &T, opponent: &mut Monster) {
+    opponent.health -= 2;
+    println!(
+        "You attack with sword. Your opponent has {} life left. Current status: {:?}",
+        opponent.health, character
+    );
+}
