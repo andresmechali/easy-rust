@@ -2,7 +2,8 @@
 
 mod custom_trait;
 mod display;
+mod from_trait;
 
 fn main() {
-    custom_trait::run();
+    from_trait::run();
 }
