@@ -41,6 +41,20 @@ pub fn run() {
         "odd numbers: {:?}",
         some_numbers.clone().retain(|num| *num == 1)
     );
+
+    println!(
+        "odd numbers squared: {:?}",
+        some_numbers
+            .clone()
+            .into_iter()
+            .filter_map(|num| {
+                match num % 2 {
+                    0 => None,
+                    _ => Some(num * num),
+                }
+            })
+            .collect::<Vec<_>>()
+    );
 }
 
 impl Default for Doubler {
