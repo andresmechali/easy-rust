@@ -7,10 +7,11 @@ pub fn run() {
         println!("{:?}", current_value);
     }
 
-    let some_numbers = vec![0, 1, 2, 3, 4, 5];
+    let some_numbers = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     let some_words = vec!["zero", "one", "two", "three", "four"];
 
     let number_word_hashmap = some_numbers
+        .clone()
         .into_iter()
         .zip(some_words.into_iter())
         .collect::<HashMap<i32, &str>>();
@@ -19,6 +20,26 @@ pub fn run() {
         "key: {}, value: {}",
         1,
         number_word_hashmap.get(&1).unwrap()
+    );
+
+    println!("{:?}", "Hello".chars());
+
+    for c in "Hello".char_indices() {
+        println!("{:?}", c);
+    }
+
+    println!(
+        "even numbers: {:?}",
+        some_numbers
+            .clone()
+            .into_iter()
+            .filter(|num| num % 2 == 0)
+            .collect::<Vec<_>>()
+    );
+
+    println!(
+        "odd numbers: {:?}",
+        some_numbers.clone().retain(|num| *num == 1)
     );
 }
 
