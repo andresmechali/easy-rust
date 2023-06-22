@@ -68,6 +68,16 @@ pub fn run() {
     let some_vec = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]];
 
     println!("and_then: {:?}", some_vec.get(2).and_then(|x| x.get(1)));
+
+    let boolean_vec = vec![vec![Some(1), None, Some(2)], vec![None, None, Some(3)]];
+
+    for i in 0..boolean_vec[0].len() {
+        let and_result = boolean_vec[0][i].and(boolean_vec[1][i]);
+        println!(
+            "{:?} and {:?} = {:?}",
+            boolean_vec[0][i], boolean_vec[1][i], and_result
+        );
+    }
 }
 
 impl Default for Doubler {
