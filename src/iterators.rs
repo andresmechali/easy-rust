@@ -55,6 +55,15 @@ pub fn run() {
             })
             .collect::<Vec<_>>()
     );
+
+    let user_input = vec!["8.9", "two", "3", "one"];
+
+    let actual_numbers = user_input
+        .into_iter()
+        .filter_map(|x| x.parse::<f32>().ok())
+        .collect::<Vec<f32>>();
+
+    println!("actual numbers: {:?}", actual_numbers);
 }
 
 impl Default for Doubler {
