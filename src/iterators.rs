@@ -64,6 +64,10 @@ pub fn run() {
         .collect::<Vec<f32>>();
 
     println!("actual numbers: {:?}", actual_numbers);
+
+    let some_vec = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]];
+
+    println!("and_then: {:?}", some_vec.get(2).and_then(|x| x.get(1)));
 }
 
 impl Default for Doubler {
