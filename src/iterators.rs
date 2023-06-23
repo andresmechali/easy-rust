@@ -92,6 +92,26 @@ pub fn run() {
         'z',
         in_char_vec(&some_string.chars().collect::<Vec<char>>(), 'z')
     );
+
+    println!(
+        "{} contains {:?} = {}",
+        some_string,
+        vec!['e', 's', 't'],
+        contains_all_chars(
+            &some_string.chars().collect::<Vec<char>>(),
+            vec!['e', 's', 't']
+        )
+    );
+
+    println!(
+        "{} contains {:?} = {}",
+        some_string,
+        vec!['e', 's', 'z'],
+        contains_all_chars(
+            &some_string.chars().collect::<Vec<char>>(),
+            vec!['e', 's', 'z']
+        )
+    );
 }
 
 impl Default for Doubler {
@@ -117,5 +137,9 @@ impl Iterator for Doubler {
 }
 
 fn in_char_vec(char_vec: &Vec<char>, check: char) -> bool {
-    char_vec.iter().any(|x| *x == check)
+    char_vec.iter().any(|&x| x == check)
+}
+
+fn contains_all_chars(char_vec: &Vec<char>, chars: Vec<char>) -> bool {
+    chars.iter().all(|&c| in_char_vec(&char_vec, c))
 }
