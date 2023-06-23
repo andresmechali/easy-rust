@@ -129,13 +129,20 @@ pub fn run() {
     println!("string fold: {}", string_fold);
 
     let my_vec = (0..10)
-        .into_iter()
         .by_ref()
         .skip_while(|&x| x < 2)
         .take_while(|&x| x < 8)
         .collect::<Vec<_>>();
 
     println!("take_while/skip_while: {:?}", my_vec);
+
+    for (i, chunk) in vec![1, 2, 3, 4, 5, 6].chunks(3).enumerate() {
+        println!("chunk {}: {:?}", i, chunk);
+    }
+
+    for (i, window) in vec![1, 2, 3, 4, 5, 6].windows(3).enumerate() {
+        println!("window {}: {:?}", i, window);
+    }
 }
 
 impl Default for Doubler {
