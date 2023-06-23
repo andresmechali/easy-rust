@@ -112,6 +112,21 @@ pub fn run() {
             vec!['e', 's', 'z']
         )
     );
+
+    let numbers = vec![1, 2, 3];
+
+    let sum = numbers.iter().fold(0, |total, x| total + x);
+    println!("fold: {}", sum);
+
+    let some_string = "some string";
+
+    let string_fold = some_string.chars().fold(String::new(), |mut acc, c| {
+        acc.push(c);
+        acc.push('-');
+        acc
+    });
+
+    println!("string fold: {}", string_fold);
 }
 
 impl Default for Doubler {
