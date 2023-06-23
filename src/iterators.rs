@@ -78,6 +78,20 @@ pub fn run() {
             boolean_vec[0][i], boolean_vec[1][i], and_result
         );
     }
+
+    let some_string = "some string";
+    println!(
+        "{} contains {} = {}",
+        some_string,
+        'e',
+        in_char_vec(&some_string.chars().collect::<Vec<char>>(), 'e')
+    );
+    println!(
+        "{} contains {} = {}",
+        some_string,
+        'z',
+        in_char_vec(&some_string.chars().collect::<Vec<char>>(), 'z')
+    );
 }
 
 impl Default for Doubler {
@@ -100,4 +114,8 @@ impl Iterator for Doubler {
         }
         None
     }
+}
+
+fn in_char_vec(char_vec: &Vec<char>, check: char) -> bool {
+    char_vec.iter().any(|x| *x == check)
 }
