@@ -127,6 +127,15 @@ pub fn run() {
     });
 
     println!("string fold: {}", string_fold);
+
+    let my_vec = (0..10)
+        .into_iter()
+        .by_ref()
+        .skip_while(|&x| x < 2)
+        .take_while(|&x| x < 8)
+        .collect::<Vec<_>>();
+
+    println!("take_while/skip_while: {:?}", my_vec);
 }
 
 impl Default for Doubler {
