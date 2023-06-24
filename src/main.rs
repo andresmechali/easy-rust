@@ -5,7 +5,8 @@ mod custom_trait;
 mod display;
 mod from_trait;
 mod iterators;
+mod strings;
 
 fn main() {
-    iterators::run();
+    strings::run();
 }
