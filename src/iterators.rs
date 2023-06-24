@@ -143,6 +143,15 @@ pub fn run() {
     for (i, window) in vec![1, 2, 3, 4, 5, 6].windows(3).enumerate() {
         println!("window {}: {:?}", i, window);
     }
+
+    let new_vec = vec![1, 2, 3];
+
+    let _ = new_vec
+        .into_iter()
+        .inspect(|x| println!("item before: {}", x))
+        .map(|x| x * x)
+        .inspect(|x| println!("item after: {}", x))
+        .collect::<Vec<_>>();
 }
 
 impl Default for Doubler {
