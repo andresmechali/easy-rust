@@ -1,3 +1,6 @@
+use std::cell::Cell;
+use std::fmt::{Display, Formatter};
+
 pub fn run() {
     println!("{}", return_static_reference());
 
@@ -9,6 +12,17 @@ pub fn run() {
 
     some_adventurer.take_damage();
     some_adventurer.take_damage();
+
+    let phone = Phone {
+        company: String::from("Apple"),
+        price: Cell::new(999),
+        on_sale: Cell::new(false),
+    };
+
+    phone.price.set(900);
+    phone.on_sale.set(true);
+
+    println!("phone -> {}", phone);
 }
 
 fn return_static_reference() -> &'static str {
@@ -40,5 +54,23 @@ impl Adventurer<'_, '_> {
             "{} {} has {} hit points left",
             self.first_name, self.last_name, self.hit_points
         );
+    }
+}
+
+struct Phone {
+    company: String,
+    price: Cell<u32>,
+    on_sale: Cell<bool>,
+}
+
+impl Display for Phone {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "brand: {}, price: {}, on sale: {}",
+            self.company,
+            self.price.get(),
+            self.on_sale.get()
+        )
     }
 }
