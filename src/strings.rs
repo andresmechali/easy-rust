@@ -1,4 +1,4 @@
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
 use std::fmt::{Display, Formatter};
 
 pub fn run() {
@@ -23,6 +23,17 @@ pub fn run() {
     phone.on_sale.set(true);
 
     println!("phone -> {}", phone);
+
+    let user_1 = User {
+        id: 1,
+        year_registered: 2020,
+        username: String::from("User 1"),
+        active: RefCell::new(false),
+    };
+
+    *user_1.active.borrow_mut() = true;
+
+    dbg!(user_1);
 }
 
 fn return_static_reference() -> &'static str {
@@ -73,4 +84,12 @@ impl Display for Phone {
             self.on_sale.get()
         )
     }
+}
+
+#[derive(Debug)]
+struct User {
+    id: u32,
+    year_registered: u32,
+    username: String,
+    active: RefCell<bool>,
 }
