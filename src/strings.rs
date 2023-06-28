@@ -35,14 +35,22 @@ pub fn run() {
 
     dbg!(user_1);
 
-    let mut my_book = Book {
+    let my_book = Book {
         name: Cell::new("Some book"),
         author: RefCell::new("Some author"),
     };
 
     my_book.name.take();
 
-    dbg!(my_book);
+    let _reference = my_book.author.borrow_mut();
+
+    if let Ok(mut r) = my_book.author.try_borrow_mut() {
+        *r = "Another author";
+    } else {
+        println!("Author already borrowed!");
+    };
+
+    // dbg!(my_book);
 }
 
 fn return_static_reference() -> &'static str {
