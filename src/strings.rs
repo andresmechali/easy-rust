@@ -34,6 +34,15 @@ pub fn run() {
     *user_1.active.borrow_mut() = true;
 
     dbg!(user_1);
+
+    let mut my_book = Book {
+        name: Cell::new("Some book"),
+        author: RefCell::new("Some author"),
+    };
+
+    my_book.name.take();
+
+    dbg!(my_book);
 }
 
 fn return_static_reference() -> &'static str {
@@ -92,4 +101,10 @@ struct User {
     year_registered: u32,
     username: String,
     active: RefCell<bool>,
+}
+
+#[derive(Debug)]
+struct Book<'a> {
+    name: Cell<&'a str>,
+    author: RefCell<&'a str>,
 }
