@@ -5,8 +5,9 @@ mod custom_trait;
 mod display;
 mod from_trait;
 mod iterators;
+mod multithread;
 mod strings;
 
 fn main() {
-    strings::run();
+    multithread::run();
 }
