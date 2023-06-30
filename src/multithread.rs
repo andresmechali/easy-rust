@@ -2,6 +2,7 @@ use std::borrow::Cow;
 use std::sync::{Mutex, RwLock};
 
 pub fn run() {
+    // Mutex part 1
     let my_mutex = Mutex::new(5);
     println!("my_mutex: {:?}", my_mutex); // Mutex { 5 }
     let mut mutex_changer = my_mutex.lock().unwrap();
@@ -35,6 +36,7 @@ pub fn run() {
 
     println!("my_book_1 sold: {:?}", my_book_1.sold);
 
+    // Mutex part 2
     let my_book_2 = Book2 {
         title: RwLock::new("Book 2 title"),
         author: RwLock::new("Book 2 author"),
@@ -51,6 +53,7 @@ pub fn run() {
 
     println!("{:?}", my_book_2);
 
+    // Cow part 1
     for number in 1..=6 {
         match modulo_3(number) {
             Cow::Borrowed(message) => println!(
@@ -63,6 +66,12 @@ pub fn run() {
             ),
         }
     }
+
+    // Cow part 2
+    let x = return_slice_or_vec(&[7, 8, 9, 10]);
+    let y = return_slice_or_vec(&[7, 8, 9, 10, 11, 12, 13]);
+    println!("x: {:?}", x);
+    println!("y: {:?}", y);
 }
 
 #[derive(Debug)]
@@ -84,5 +93,12 @@ fn modulo_3(input: u8) -> Cow<'static, str> {
         0 => "Remainder is 0".into(),
         1 => "Remainder is 1".into(),
         remainder => format!("Remainder is {}", remainder).into(),
+    }
+}
+
+fn return_slice_or_vec<'cow>(input: &'cow [i32]) -> Cow<'cow, [i32]> {
+    match input.len() {
+        0..=5 => Cow::Owned(input.to_vec()),
+        _ => Cow::Borrowed(input),
     }
 }
