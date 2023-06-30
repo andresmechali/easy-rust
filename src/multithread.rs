@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use std::sync::{Mutex, RwLock};
 
 pub fn run() {
@@ -49,6 +50,19 @@ pub fn run() {
     drop(sold);
 
     println!("{:?}", my_book_2);
+
+    for number in 1..=6 {
+        match modulo_3(number) {
+            Cow::Borrowed(message) => println!(
+                "{} went in. The Cow is borrowed with this message: {}",
+                number, message
+            ),
+            Cow::Owned(message) => println!(
+                "{} went in. The Cow is owned with this message: {}",
+                number, message
+            ),
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -63,4 +77,12 @@ struct Book2<'a> {
     title: RwLock<&'a str>,
     author: RwLock<&'a str>,
     sold: RwLock<u32>,
+}
+
+fn modulo_3(input: u8) -> Cow<'static, str> {
+    match input % 3 {
+        0 => "Remainder is 0".into(),
+        1 => "Remainder is 1".into(),
+        remainder => format!("Remainder is {}", remainder).into(),
+    }
 }
