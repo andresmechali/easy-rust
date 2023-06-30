@@ -1,4 +1,4 @@
-use std::sync::Mutex;
+use std::sync::{Mutex, RwLock};
 
 pub fn run() {
     let my_mutex = Mutex::new(5);
@@ -33,6 +33,22 @@ pub fn run() {
     }
 
     println!("my_book_1 sold: {:?}", my_book_1.sold);
+
+    let my_book_2 = Book2 {
+        title: RwLock::new("Book 2 title"),
+        author: RwLock::new("Book 2 author"),
+        sold: RwLock::new(50_000),
+    };
+
+    // read lock
+    let _title = my_book_2.title.read().unwrap();
+    let _author = my_book_2.author.read().unwrap();
+    // write lock
+    let mut sold = my_book_2.sold.write().unwrap();
+    *sold = 60_000;
+    drop(sold);
+
+    println!("{:?}", my_book_2);
 }
 
 #[derive(Debug)]
@@ -40,4 +56,11 @@ struct Book<'a> {
     name: Mutex<&'a str>,
     author: Mutex<&'a str>,
     sold: Mutex<u32>,
+}
+
+#[derive(Debug)]
+struct Book2<'a> {
+    title: RwLock<&'a str>,
+    author: RwLock<&'a str>,
+    sold: RwLock<u32>,
 }
